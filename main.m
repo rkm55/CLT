@@ -8,4 +8,4 @@ clc; clear; close all;
 [n,vv] = numplies;
 
 %% Engineering Parameters
-[E1,E2,G12,v12,t,z,theta] = eparam(n,vv);
+[E1,E2,G12,v12,t,f,theta] = eparam(n,vv);
