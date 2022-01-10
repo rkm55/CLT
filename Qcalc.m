@@ -1,13 +1,6 @@
-clear; clc;
-% E1 = 
-% E2 = 
-% v12 = 
-% G12 = 
-% theta = 
-% n = 
-
-%% function [Q,Qbar] = Qcalc(n,E1,E2,G12,v12,theta) 
-% Preallocate matrices
+function [Q,Qbar] = Qcalc(n,E1,E2,G12,v12,theta)
+% ---------------------------------------
+    % Preallocate matrices
     Q = zeros(3,3,n);
     Qbar = zeros(3,3,n);
     for i = 1:n
