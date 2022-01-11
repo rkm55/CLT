@@ -4,8 +4,10 @@ function [n,vv] = numplies
     prompt='Input number of plies:';
     name='Number of Plies';
     numlines=1;
-    n = str2double(inputdlg(prompt,name,numlines));
-    vvf = questdlg('Variable volume fraction?','Input','Yes','No','No');
+    definput= {'1'};
+    options.Resize= 'on';
+    n = str2double(inputdlg(prompt,name,numlines,definput,options));
+    vvf = questdlg('Variable volume fraction?','Input','Yes','No','Yes');
     switch vvf
         case 'No'
             vv = 0;

@@ -1,41 +1,14 @@
 clear; clc;
-% E1 = 
-% E2 = 
-% v12 = 
-% G12 = 
-% theta = 
-% n = 
 
-%% function [Q,Qbar] = Qcalc(n,E1,E2,G12,v12,theta) 
-% Preallocate matrices
-    Q = zeros(3,3,n);
-    Qbar = zeros(3,3,n);
-    for i = 1:n
-        % Compliance value calculations
-        S11 = 1/E1(i);
-        S22 = 1/E2(i);
-        S12 = -v12(i)/E1(i);
-        S66 = 1/G12(i);
-        % Stiffness value calculations, fill Q matrix
-        Q(1,1,i) = S22/(S11*S22 - S12^2);
-        Q(1,2,i) = -S12/(S11*S22 - S12^2);
-        Q(2,1,i) = Q(1,2,i);
-        Q(2,2,i) = S11/(S11*S22 - S12^2);
-        Q(3,3,i) = 1/S66; % 2*Q66 or not???
-        % Transformation matrix calculations
-        s = sind(theta(i));
-        c = cosd(theta(i));
-        T = [c^2 s^2 2*c*s; s^2 c^2 -2*c*s; -c*s c*s c^2-s^2];
-        % Qbar calculations: inv(T)*Q*T
-        Qbar(:,:,i) = T\Q(:,:,i)*T;
-    end
+%% function --- 
 
-    % work on matching Q and Qbar
-
-
-
-
-
+prompt='Input number of plies:';
+    name='Number of Plies';
+    numlines=1;
+    definput= {'1'};
+    options.Resize= 'on';
+    n = str2double(inputdlg(prompt,name,numlines,definput,options));
+    
 
 
 

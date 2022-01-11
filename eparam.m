@@ -7,7 +7,6 @@ Ef1a = [4e+11 3.79e+11 2.137e+11 2.21e+11 1.52e+11 8.55e+10 7.31e+10];
 Ef2a = [4e+11 6.21e+9 1.38e+10 1.38e+10 4.14e+9 8.55e+10 7.31e+10];
 vf12a = [0.2 0.2 0.2 0.2 0.35 0.2 0.22];
 Gf12a = [1.67e+11 7.58e+9 1.38e+10 8.96e+9 2.9e+9 3.56e+10 3.01e+10];
-Gf21a = [167e9 4.83e9 6.89e9 4.83e9 1.52e9 35.6e9 30.1e9];
 
 % Matrix material properties. E values in Pa
 listmat = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
@@ -53,13 +52,14 @@ G12 = zeros(1,n);
             Ef2 = Ef2a(fiber);
             vf12 = vf12a(fiber);
             Gf12 = Gf12a(fiber);
-            Gf21 = Gf21a(fiber);
             Em = Ema(matrix);
             vm = vma(matrix);
             Gm = Gma(matrix);
             % volume fraction input for each layer
+            definput= {'0.5'};
+            options.Resize= 'on';
             f(i) = str2double(inputdlg(['Input fiber volume fraction between 0 and 1 for layer ',num2str(i)]...
-            ,'Volume Fraction',1));
+            ,'Volume Fraction',1,definput,options));
             if f(i) < 0 || f(i) > 1
                 f(i) = 0.5;
             end
@@ -74,8 +74,10 @@ G12 = zeros(1,n);
     % Thickness of each layer (m)
     t = zeros(1,n);
     for i = 1:n
+        definput= {'0.25'};
+        options.Resize= 'on';
         t(i) = (1/1000)*str2double(inputdlg(['Input thickness (mm) for layer ',num2str(i)]...
-        ,'Thickness',1));
+        ,'Thickness',1,definput,options));
         if t(i) <= 0
             t(i) = 0.0025;
         end
@@ -84,8 +86,10 @@ G12 = zeros(1,n);
     % Orientation angle for each layer
     theta = zeros(1,n);
     for i = 1:n
+        definput= {'0'};
+        options.Resize= 'on';
         theta(i) = str2double(inputdlg(['Input orientation angle (-90 to 90) for layer ',num2str(i)]...
-        ,'Orientation',1));
+        ,'Orientation',1,definput,options));
         if theta(i) < -90 || theta(i) > 90
             theta(i) = 0;
         elseif theta(i) == -90
