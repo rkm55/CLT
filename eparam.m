@@ -7,6 +7,7 @@ Ef1a = [4e+11 3.79e+11 2.137e+11 2.21e+11 1.52e+11 8.55e+10 7.31e+10];
 Ef2a = [4e+11 6.21e+9 1.38e+10 1.38e+10 4.14e+9 8.55e+10 7.31e+10];
 vf12a = [0.2 0.2 0.2 0.2 0.35 0.2 0.22];
 Gf12a = [1.67e+11 7.58e+9 1.38e+10 8.96e+9 2.9e+9 3.56e+10 3.01e+10];
+Gf21a = [167e9 4.83e9 6.89e9 4.83e9 1.52e9 35.6e9 30.1e9];
 
 % Matrix material properties. E values in Pa
 listmat = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
@@ -52,6 +53,7 @@ G12 = zeros(1,n);
             Ef2 = Ef2a(fiber);
             vf12 = vf12a(fiber);
             Gf12 = Gf12a(fiber);
+            Gf21 = Gf21a(fiber);
             Em = Ema(matrix);
             vm = vma(matrix);
             Gm = Gma(matrix);
@@ -65,7 +67,7 @@ G12 = zeros(1,n);
             E1(i) = Ef1*f(i) + Em*(1-f(i));
             v12(i) = vf12*f(i) + vm*(1-f(i));
             E2(i) = Em*((1-sqrt(f(i)))+(sqrt(f(i))/(1-(sqrt(f(i))*(1-(Em/Ef2))))));
-            G12(i) = 1/(f(i)/Gf12) + ((1-f(i))/Gm);
+            G12(i) = Gm*((1-sqrt(f(i)))+(sqrt(f(i))/(1-(sqrt(f(i))*(1-(Gm/Gf12))))));
         end
     end
 

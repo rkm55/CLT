@@ -18,13 +18,25 @@ clear; clc;
         S66 = 1/G12(i);
         % Stiffness value calculations, fill Q matrix
         Q(1,1,i) = S22/(S11*S22 - S12^2);
-        Q(1,2,i) = S12/(S11*S22 - S12^2);
+        Q(1,2,i) = -S12/(S11*S22 - S12^2);
         Q(2,1,i) = Q(1,2,i);
         Q(2,2,i) = S11/(S11*S22 - S12^2);
-        Q(3,3,i) = 2/S66;
-        
+        Q(3,3,i) = 1/S66; % 2*Q66 or not???
         % Transformation matrix calculations
         s = sind(theta(i));
         c = cosd(theta(i));
         T = [c^2 s^2 2*c*s; s^2 c^2 -2*c*s; -c*s c*s c^2-s^2];
+        % Qbar calculations: inv(T)*Q*T
+        Qbar(:,:,i) = T\Q(:,:,i)*T;
     end
+
+    % work on matching Q and Qbar
+
+
+
+
+
+
+
+
+
