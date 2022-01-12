@@ -23,7 +23,15 @@ clc; clear; close all;
 % Q = stiffness tensor for each layer
 % Qbar = stiffness tensor in global frame for each layer
 [Q,Qbar] = Qcalc(n,E1,E2,G12,v12,theta);
-disp('Q (GPa)')
-disp(Q/1e9)
-disp('Qbar (GPa)')
-disp(Qbar/1e9)
+disp('Q (GPa) ply 1')
+disp(Q(:,:,1)/1e9)
+disp('Qbar (GPa) ply 1')
+disp(Qbar(:,:,1)/1e9)
+
+%% Applied Forces
+% [M,N] = appforces;
+
+%% Macro Stiffness Constants
+% [ABD] = macrostiffness(Q,Qbar,t,n);
+
+

@@ -33,9 +33,9 @@ E2 = zeros(1,n);
 G12 = zeros(1,n);
 
     if vv == 0  % no variable vf
-        % Properties of each layer
+        % Choose composite for all layers
+        [composite] = choosecomposite;
         for i = 1:n
-            [composite] = choosecomposite(i);
             E1(i) = Ec1(composite);
             v12(i) = vc12(composite);
             E2(i) = Ec2(composite);
@@ -44,9 +44,11 @@ G12 = zeros(1,n);
         end
     
     elseif vv == 1 % yes variable vf
-        % Properties of each layer
+        % Choose matrix for all layers
+        [matrix] = choosematrix;
         for i = 1:n 
-            [fiber,matrix] = choosematerial(i);
+            % Choose fiber material for each layer
+            [fiber] = choosefiber(i);
             % Fiber/matrix properties for chosen materials
             Ef1 = Ef1a(fiber);
             Ef2 = Ef2a(fiber);

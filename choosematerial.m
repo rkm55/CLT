@@ -1,4 +1,4 @@
-function [fiber,matrix] = choosematerial(i)
+function [fiber] = choosefiber(i)
 % Allows user to select laminate materials from 7 different fibers and
 % 6 different matrix materials
     list = {'Boron','HMS','AS','T300','KEV','S-Glass','E-Glass'};
