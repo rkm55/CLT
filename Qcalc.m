@@ -18,7 +18,9 @@ function [Q,Qbar] = Qcalc(n,E1,E2,G12,v12,theta)
         s = sind(theta(i));
         c = cosd(theta(i));
         T = [c^2 s^2 2*c*s; s^2 c^2 -2*c*s; -c*s c*s c^2-s^2];
+        T2 = [T(1,1) T(1,2) T(1,3)/2;...
+            T(2,1) T(2,2) T(2,3)/2; 2*T(3,1) 2*T(3,2) T(3,3)];
         % Qbar calculations: inv(T)*Q*T
-        Qbar(:,:,i) = T\Q(:,:,i)*T;
+        Qbar(:,:,i) = T\Q(:,:,i)*T2;
     end
 end
