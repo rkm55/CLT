@@ -22,10 +22,14 @@ clc; clear; close all;
 %% Stiffness Tensors
 % Q = stiffness tensor for each layer
 % Qbar = stiffness tensor in global frame for each layer
-[Q,Qbar] = Qcalc(n,E1,E2,G12,v12,theta);
-disp('Q (GPa) ply 1')
-disp(Q(:,:,1)/1e9)
-disp('Qbar (GPa) ply 1')
+[Q,Qbar,S] = Qcalc(n,E1,E2,G12,v12,theta);
+
+disp('AS/3501 carbon/epoxy')
+% disp('S ply 1')
+% disp(S(:,:,1))
+% disp('Q (GPa) ply 1')
+% disp(Q(:,:,1)/1e9)
+disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
 disp(Qbar(:,:,1)/1e9)
 
 %% Applied Forces
