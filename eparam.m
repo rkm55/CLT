@@ -1,27 +1,27 @@
 function [E1,E2,G12,v12,t,f,theta] = eparam(n,vv)
 % Calculates layer properties for variable and nonvariable volume fraction
 
-% Fiber material properties. E values in Pa
+% Fiber material properties. E values in GPa
 listfib = {'Boron','HMS','AS','T300','KEV','S-G','E-G'};
-Ef1a = [4e+11 3.79e+11 2.137e+11 2.21e+11 1.52e+11 8.55e+10 7.31e+10];
-Ef2a = [4e+11 6.21e+9 1.38e+10 1.38e+10 4.14e+9 8.55e+10 7.31e+10];
+Ef1a = [400 379 213.7 221 152 85.5 73.1];
+Ef2a = [400 6.21 13.8 13.8 4.14 85.5 73.1];
 vf12a = [0.2 0.2 0.2 0.2 0.35 0.2 0.22];
-Gf12a = [1.67e+11 7.58e+9 1.38e+10 8.96e+9 2.9e+9 3.56e+10 3.01e+10];
+Gf12a = [167 7.58 13.8 8.96 2.9 35.6 30.1];
 
-% Matrix material properties. E values in Pa
+% Matrix material properties. E values in GPa
 listmat = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
-Ema = [2.21e+9 3.45e+9 3.45e+9 5.17e+9 3.45e+9 3.24e+9];
+Ema = [2.21 3.45 3.45 5.17 3.45 3.24];
 vma = [0.43 0.41 0.35 0.35 0.35 0.36];
 Gma = Ema./(2.*(1+vma));
 
-% Composite material properties. E values in Pa
+% Composite material properties. E values in GPa
 listcom = {'Boron/5505 boron/epoxy','AS/3501 carbon/epoxy',...
         'IM7/8551-7 carbon/epoxy','AS4/APC2 carbon/PEEK','B4/6061 boron/aluminum',...
         'Kevlar 49/934 aramid/epoxy','Scotchply 1002 E-glass/epoxy',...
         'E-glass/470-36/vinyl ester'};
-Ec1 = [204e9 139e9 162e9 131e9 235e9 75.8e9 38.6e9 24.4e9];
-Ec2 = [18.5e9 9e9 8.34e9 8.7e9 137e9 5.5e9 8.27e9 6.87e9];
-Gc12 = [5.59e9 6.9e9 2.07e9 5e9 47e9 2.3e9 4.14e9 2.89e9];
+Ec1 = [204 139 162 131 235 75.8 38.6 24.4];
+Ec2 = [18.5 9 8.34 8.7 137 5.5 8.27 6.87];
+Gc12 = [5.59 6.9 2.07 5 47 2.3 4.14 2.89];
 vc12 = [0.23 0.3 0.34 0.28 0.3 0.34 0.26 0.32];
 fc = [0.5 0.65 0.6 0.58 0.5 0.65 0.45 0.3];
 
@@ -73,12 +73,12 @@ G12 = zeros(1,n);
         end
     end
 
-    % Thickness of each layer (m)
+    % Thickness of each layer (mm)
     t = zeros(1,n);
     for i = 1:n
         definput= {'0.25'};
         options.Resize= 'on';
-        t(i) = (1/1000)*str2double(inputdlg(['Input thickness (mm) for layer ',num2str(i)]...
+        t(i) = str2double(inputdlg(['Input thickness (mm) for layer ',num2str(i)]...
         ,'Thickness',1,definput,options));
         if t(i) <= 0
             t(i) = 0.0025;

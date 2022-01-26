@@ -29,22 +29,27 @@ clc; clear; close all;
 % disp(S(:,:,1))
 % disp('Boron with LM matrix')
 % disp('Q (GPa)')
-% disp(Q(:,:,1)/1e9)
+% disp(Q(:,:,1))
 % disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
-% disp(Qbar(:,:,1)/1e9)
+% disp(Qbar(:,:,1))
 
 %% Macro Stiffness Constants
 % A = laminate extensional stiffnesses (Pa m)
 % B = laminate coupling stiffnesses (Pa m^2)
 % A = laminate bending stiffnesses (Pa m^3)
-[A,B,D] = macrostiffness(Qbar,t,n);
+% z = 
+[A,B,D,z] = macrostiffness(Qbar,t,n);
+ABBD = [A B; B D];
 
-% disp('A (Pa m)')
-% disp(A)
-% disp('B (Pa m^2)')
-% disp(B)
-% disp('D (Pa m^3)')
-% disp(D)
+clc;
+disp('A (GPa mm)')
+disp(A)
+disp('B (GPa mm^2)')
+disp(B)
+disp('D (GPa mm^3)')
+disp(D)
+disp('ABBD')
+disp(ABBD)
 
 %% Applied Forces
 % [M,N] = appforces;
