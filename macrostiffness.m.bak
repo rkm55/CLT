@@ -3,8 +3,8 @@ function [A,B,D,z] = macrostiffness(Qbar,t,n)
     % Distances z (mm)
     z = zeros(1,n+1);
     z(1) = -sum(t,'all')/2;
-    for i = 1:n
-        z(i+1) = z(i) + t(i);
+    for i = 2:n+1
+        z(i) = z(i-1) + t(i-1);
     end
     % Initialize A,B,D matrices
     A = zeros(3);
