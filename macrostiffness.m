@@ -11,36 +11,16 @@ function [A,B,D,z] = macrostiffness(Qbar,t,n)
     B = zeros(3);
     D = zeros(3);
     for i = 1:n
-        % A (laminate extensional stiffness) (GPa mm)
-        A(1,1) = Qbar(1,1,i)*(z(i+1)-z(i)) + A(1,1);
-        A(1,2) = Qbar(1,2,i)*(z(i+1)-z(i)) + A(1,2);
-        A(1,3) = Qbar(1,3,i)*(z(i+1)-z(i)) + A(1,3);
-        A(2,1) = Qbar(2,1,i)*(z(i+1)-z(i)) + A(2,1);
-        A(2,2) = Qbar(2,2,i)*(z(i+1)-z(i)) + A(2,2);
-        A(2,3) = Qbar(2,3,i)*(z(i+1)-z(i)) + A(2,3);
-        A(3,1) = Qbar(3,1,i)*(z(i+1)-z(i)) + A(3,1);
-        A(3,2) = Qbar(3,2,i)*(z(i+1)-z(i)) + A(3,2);
-        A(3,3) = Qbar(3,3,i)*(z(i+1)-z(i)) + A(3,3);
-        % B (laminate coupling stiffnesses) (GPa mm^2)
-        B(1,1) = Qbar(1,1,i)*(z(i+1)^2-z(i)^2) + B(1,1);
-        B(1,2) = Qbar(1,2,i)*(z(i+1)^2-z(i)^2) + B(1,2);
-        B(1,3) = Qbar(1,3,i)*(z(i+1)^2-z(i)^2) + B(1,3);
-        B(2,1) = Qbar(2,1,i)*(z(i+1)^2-z(i)^2) + B(2,1);
-        B(2,2) = Qbar(2,2,i)*(z(i+1)^2-z(i)^2) + B(2,2);
-        B(2,3) = Qbar(2,3,i)*(z(i+1)^2-z(i)^2) + B(2,3);
-        B(3,1) = Qbar(3,1,i)*(z(i+1)^2-z(i)^2) + B(3,1);
-        B(3,2) = Qbar(3,2,i)*(z(i+1)^2-z(i)^2) + B(3,2);
-        B(3,3) = Qbar(3,3,i)*(z(i+1)^2-z(i)^2) + B(3,3);
-        % D (laminate bending stiffnesses) (GPa mm^3)
-        D(1,1) = Qbar(1,1,i)*(z(i+1)^3-z(i)^3) + D(1,1);
-        D(1,2) = Qbar(1,2,i)*(z(i+1)^3-z(i)^3) + D(1,2);
-        D(1,3) = Qbar(1,3,i)*(z(i+1)^3-z(i)^3) + D(1,3);
-        D(2,1) = Qbar(2,1,i)*(z(i+1)^3-z(i)^3) + D(2,1);
-        D(2,2) = Qbar(2,2,i)*(z(i+1)^3-z(i)^3) + D(2,2);
-        D(2,3) = Qbar(2,3,i)*(z(i+1)^3-z(i)^3) + D(2,3);
-        D(3,1) = Qbar(3,1,i)*(z(i+1)^3-z(i)^3) + D(3,1);
-        D(3,2) = Qbar(3,2,i)*(z(i+1)^3-z(i)^3) + D(3,2);
-        D(3,3) = Qbar(3,3,i)*(z(i+1)^3-z(i)^3) + D(3,3); 
+        for r = 1:3
+            for c = 1:3
+                % A (laminate extensional stiffness) (GPa mm)
+                A(r,c) = Qbar(r,c,i)*(z(i+1)-z(i)) + A(r,c);
+                % B (laminate coupling stiffnesses) (GPa mm^2)
+                B(r,c) = Qbar(r,c,i)*(z(i+1)^2-z(i)^2) + B(r,c);
+                % D (laminate bending stiffnesses) (GPa mm^3)
+                D(r,c) = Qbar(r,c,i)*(z(i+1)^3-z(i)^3) + D(r,c);
+            end
+        end
     end
     % Constants after summation (eqns: 7.42, 7.43)
     B = B/2;
