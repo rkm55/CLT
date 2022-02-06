@@ -2,34 +2,34 @@ clear; clc; close all;
 
 % temp file for testing
 
-%% In class exercise
-% A [+45/-45/-45/+45] symmetric angle-ply laminate of 0.25 mm thick 
-% unidirectional AS3501 carbon/epoxy laminae is pulled in tension such 
-% that there is no curvature, and the resulting neutral axis strains are:
-% eps^0_x=.002138, eps^0_y=-.001485, gamma^0_xy=0
-% What are the stresses on the top +45 lamina?
-
-lam = [45 -45 -45 45];  % laminate properties and given values
-E1 = 138;   % GPa
-E2 = 9;
-G12 = 6.9;
-v12 = 0.3;
-ex = -0.002138;
-ey = 0.001485;
-gxy = 0;
-
-strain = [ex; ey; gxy];
-Qbar45 = [45.2 31.42 32.44; 31.42 45.2 32.44; 32.44 32.44 35.6];
-
-stress = 1000*(Qbar45*strain);
+%% In class exercise: calculating B
+% A [45/0] laminate made from E-glass and polyurethane has a 3mm 45o layer
+% and a 5 mm 0o layer. Calculate the coupling stiffness matrix, B, for the 
+% force-deformation equation.
+n = 2;              % # of layers
+theta = [45 0];     % layer orientations
+t = [3 5];          % layer thicknesses (mm)
+Q = zeros(3,3,n);
+Q(:,:,1) = [20 0.7 0; 0.7 2 0; 0 0 0.7];    % given Q matrix (GPa)
+Q(:,:,2) = Q(:,:,1);
+Qbar = zeros(3,3,n);
+for i = 1:n
+    % Transformation matrix calculations
+    s = sind(theta(i));
+    c = cosd(theta(i));
+    T = [c^2 s^2 2*c*s; s^2 c^2 -2*c*s; -c*s c*s c^2-s^2];
+    T2 = [T(1,1) T(1,2) T(1,3)/2;...
+        T(2,1) T(2,2) T(2,3)/2; 2*T(3,1) 2*T(3,2) T(3,3)];
+    % Qbar calculations: inv(T)*Q*T2
+    Qbar(:,:,i) = T\Q(:,:,i)*T2;
+end
+% Coupling stiffnes matrix B calculation
+[A,B,D,z] = macrostiffness(Qbar,t,n);   % macrostiffness function CLT
+ABBD = [A B; B D];
 disp(' ')
-disp('Stress (MPa)')
+disp('B (GPa mm^2)')
 disp(' ')
-disp(['Stress x = ',num2str(stress(1,1))])
-disp(['Stress y = ',num2str(stress(2,1))])
-disp(['Shear xy = ',num2str(stress(3,1))])
-
-
+disp(B)
 
 
 

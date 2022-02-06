@@ -24,15 +24,6 @@ clc; clear; close all;
 % Qbar = stiffness tensor in global frame for each layer
 [Q,Qbar,S] = Qcalc(n,E1,E2,G12,v12,theta);
 
-disp('IMLS matrix, HMS fiber')
-% disp('S ply 1')
-% disp(S(:,:,1))
-% disp('Boron with LM matrix')
-disp('Q (GPa)')
-disp(Q(:,:,1))
-disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
-disp(Qbar(:,:,1))
-
 %% Macro Stiffness Constants
 % A = laminate extensional stiffnesses (Pa m)
 % B = laminate coupling stiffnesses (Pa m^2)
@@ -41,7 +32,19 @@ disp(Qbar(:,:,1))
 [A,B,D,z] = macrostiffness(Qbar,t,n);
 ABBD = [A B; B D];
 
-% clc;
+%% Applied Forces
+% [M,N] = appforces;
+
+%% Display Values
+% disp('IMLS matrix, HMS fiber')
+% disp('S ply 1')
+% disp(S(:,:,1))
+% disp('Boron with LM matrix')
+% disp('Q (GPa)')
+% disp(Q(:,:,1))
+% disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
+% disp(Qbar(:,:,1))
+
 % disp('A (GPa mm)')
 % disp(A)
 % disp('B (GPa mm^2)')
@@ -50,10 +53,3 @@ ABBD = [A B; B D];
 % disp(D)
 % disp('ABBD')
 % disp(ABBD)
-
-%% Applied Forces
-% [M,N] = appforces;
-
-
-
-

@@ -7,7 +7,9 @@ function [n,vv] = numplies
     definput= {'1'};
     options.Resize= 'on';
     n = str2double(inputdlg(prompt,name,numlines,definput,options));
-    vvf = questdlg('Variable volume fraction?','Input','Yes','No','Yes');
+    vvf = questdlg({'Variable volume fraction?',...
+        '(Yes allows user to input volume fraction)'},...
+        'Input','Yes','No','Yes');
     switch vvf
         case 'No'
             vv = 0;
