@@ -16,13 +16,10 @@ function [A,B,D,z] = macrostiffness(Qbar,t,n)
                 % A (laminate extensional stiffness) (GPa mm)
                 A(r,c) = Qbar(r,c,i)*(z(i+1)-z(i)) + A(r,c);
                 % B (laminate coupling stiffnesses) (GPa mm^2)
-                B(r,c) = Qbar(r,c,i)*(z(i+1)^2-z(i)^2) + B(r,c);
+                B(r,c) = ((1/2)*Qbar(r,c,i)*(z(i+1)^2-z(i)^2)) + B(r,c);
                 % D (laminate bending stiffnesses) (GPa mm^3)
-                D(r,c) = Qbar(r,c,i)*(z(i+1)^3-z(i)^3) + D(r,c);
+                D(r,c) = ((1/3)*Qbar(r,c,i)*(z(i+1)^3-z(i)^3)) + D(r,c);
             end
         end
     end
-    % Constants after summation (eqns: 7.42, 7.43)
-    B = B/2;
-    D = D/3;
 end
