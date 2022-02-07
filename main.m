@@ -10,37 +10,43 @@ clc; clear; close all;
 [n,vv] = numplies;
 
 %% Engineering Parameters
-% E1 = modulus 1 for each layer (Pa)
+% E1 = modulus 1 for each layer (GPa)
 % E2 = modulus 2 for each layer
 % G12 = shear modulus for each layer
 % v12 = major poissons ratio for each layer
-% t = thickness of each layer (m)
+% t = thickness of each layer (mm)
 % f = volume fraction of each layer
 % theta = orientation in degrees of each layer (deg)
 [E1,E2,G12,v12,t,f,theta] = eparam(n,vv);
 
 %% Stiffness Tensors
-% Q = stiffness tensor for each layer
+% Q = stiffness tensor for each layer (GPa)
 % Qbar = stiffness tensor in global frame for each layer
 [Q,Qbar,S] = Qcalc(n,E1,E2,G12,v12,theta);
 
 %% Macro Stiffness Constants
-% A = laminate extensional stiffnesses (Pa m)
-% B = laminate coupling stiffnesses (Pa m^2)
-% A = laminate bending stiffnesses (Pa m^3)
-% z = 
+% A = laminate extensional stiffnesses (GPa mm)
+% B = laminate coupling stiffnesses (GPa mm^2)
+% A = laminate bending stiffnesses (GPa mm^3)
+% z = Distances array (mm)
 [A,B,D,z] = macrostiffness(Qbar,t,n);
 ABBD = [A B; B D];
 
 %% Applied Forces
-% [M,N] = appforces;
+% NM = MPa-mm and MPa-mm^2
+[NM] = appforces;
+
+%% Stresses
+% [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD);
+
+
 
 %% Display Values
-disp('IMLS matrix, HMS fiber, 0.75 vf')
-disp('Q (GPa)')
-disp(Q(:,:,1))
-disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
-disp(Qbar(:,:,1))
+% disp('IMLS matrix, HMS fiber, 0.75 vf')
+% disp('Q (GPa)')
+% disp(Q(:,:,1))
+% disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
+% disp(Qbar(:,:,1))
 
 %% Function numplies
 %
