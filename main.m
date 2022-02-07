@@ -1,8 +1,8 @@
 clc; clear; close all;
-%%% ME 456 CLT Project Code %%%
+%%% ME 456 CLT Project Code
 %   Author:     Ryan Melander
 %   Started:    1/6/2022
-%   Completed:  --/--/----
+%   Last Edit:  2/6/2022
 
 %% Number of Plies
 % n = # plies
@@ -36,20 +36,44 @@ ABBD = [A B; B D];
 % [M,N] = appforces;
 
 %% Display Values
-% disp('IMLS matrix, HMS fiber')
-% disp('S ply 1')
-% disp(S(:,:,1))
-% disp('Boron with LM matrix')
-% disp('Q (GPa)')
-% disp(Q(:,:,1))
-% disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
-% disp(Qbar(:,:,1))
+disp('IMLS matrix, HMS fiber, 0.75 vf')
+disp('Q (GPa)')
+disp(Q(:,:,1))
+disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
+disp(Qbar(:,:,1))
 
-% disp('A (GPa mm)')
-% disp(A)
-% disp('B (GPa mm^2)')
-% disp(B)
-% disp('D (GPa mm^3)')
-% disp(D)
-% disp('ABBD')
-% disp(ABBD)
+%% Function numplies
+%
+% <include>numplies.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function eparam
+%
+% <include>eparam.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function choosecomposite
+%
+% <include>choosecomposite.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function choosematrix
+%
+% <include>choosematrix.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function choosefiber
+%
+% <include>choosefiber.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function Qcalc
+%
+% <include>Qcalc.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function macrostiffness
+%
+% <include>macrostiffness.m</include>
+%
+% The file content above is properly syntax highlighted
