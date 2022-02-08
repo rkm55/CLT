@@ -4,7 +4,7 @@ function [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD,Qbar,n,
 % sigmabarT(:,1) = stress on top of layer 1
 % sigmabarB(:,1) = stress on bottom of layer 1
     % Midplane strains and curvatures
-    ek = (ABBD\NM);
+    ek = ABBD\NM;
     eps0 = ek(1:3);
     k = ek(4:6);
     % Lamina stresses and strains
