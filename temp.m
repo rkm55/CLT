@@ -15,29 +15,29 @@ ABBD=[74.4337506331862 2.71582603661625	0 0 0 0;...
     0 0 0 10.2891248763779 0.226318836384688 0;...
     0 0 0 0.226318836384688 2.11650022915310 0;...
     0 0 0 0 0 0.575000000000000];
+
 %% function [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD,n,Qbar,z)
 % -------------------------------------
     % Midplane strains and curvatures
-    ek = (ABBD\NM).';
+    ek = (ABBD\NM);
+    eps0 = ek(1:3);
+    k = ek(4:6);
     % Lamina stresses and strains eq 7.61
-    lamstrain = zeros(3,n);
-    lamstress = zeros(3,n);
+    strain = zeros(3,n+1);
+    % Strain array between all layers
     for i = 1:n+1
-        lamstrain(:,i) = [ek(1)+z(i)*ek(4); ek(2)+z(i)*ek(5); ek(3)+z(i)*ek(6)];
+        strain(:,i) = [eps0(1)+z(i)*k(1); eps0(2)+z(i)*k(2); eps0(3)+z(i)*k(3)];
     end
-    for i = 1:n+1       % Qbar only goes to n and z=n+1
-       lamstress(:,i) = Qbar(:,:,i)*lamstrain(:,i);
+    % Strains top and bottom of each layer
+    epsbarT = strain(:,1:n);
+    epsbarB = strain(:,2:n+1);
+    % Stresses top and bottom of each layer
+    sigmabarT = zeros(3,n);
+    sigmabarB = zeros(3,n);
+    for i = 1:n
+       sigmabarT(:,i) = Qbar(:,:,i)*epsbarT(:,i);
+       sigmabarB(:,i) = Qbar(:,:,i)*epsbarB(:,i);
     end
-
-
-
-%     strainmat = [eps0(1,1)+z(kth)*k(1,1);...
-%     eps0(2,1)+z(kth)*k(2,1);...
-%     eps0(3,1)+z(kth)*k(3,1);];
-%     % Stress calculation
-%     stressmat = Qbar*strainmat;
-%     stressmat = stressmat*1000;
-
 
 
 

@@ -37,9 +37,13 @@ ABBD = [A B; B D];
 [NM] = appforces;
 
 %% Stresses
-% [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD);
-
-
+% eps0 = midplane strains
+% k = midplane curvatures
+% sigmabarT = stress on top of layer n (GPa)
+% epsbarT = strain on top of layer n
+% sigmabarB = stress on bottom of layer n (GPa)
+% epsbarB = strain on bottom of layer n
+[eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD,Qbar,n,z);
 
 %% Display Values
 % disp('IMLS matrix, HMS fiber, 0.75 vf')
