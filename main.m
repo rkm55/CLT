@@ -17,7 +17,8 @@ clc; clear; close all;
 % t = thickness of each layer (mm)
 % f = volume fraction of each layer
 % theta = orientation in degrees of each layer (deg)
-[E1,E2,G12,v12,t,f,theta] = eparam(n,vv);
+% Name* = list of composite, fiber, and matrix materials
+[E1,E2,G12,v12,t,f,theta,NameC,NameF,NameM] = eparam(n,vv);
 
 %% Stiffness Tensors
 % Q = stiffness tensor for each layer (GPa)
@@ -44,6 +45,9 @@ ABBD = [A B; B D];
 % sigmabarB = stress on bottom of layer n (GPa)
 % epsbarB = strain on bottom of layer n
 [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD,Qbar,n,z);
+
+%% Strength Parameters
+% [SLP SLM STP STM] = strengthparam;
 
 %% Display Values
 % disp('IMLS matrix, HMS fiber, 0.75 vf')

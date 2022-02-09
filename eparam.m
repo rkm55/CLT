@@ -1,21 +1,21 @@
-function [E1,E2,G12,v12,t,f,theta] = eparam(n,vv)
+function [E1,E2,G12,v12,t,f,theta,NameC,NameF,NameM] = eparam(n,vv)
 % Calculates layer properties for variable and nonvariable volume fraction
 
 % Fiber material properties. E values in GPa
-listfib = {'Boron','HMS','AS','T300','KEV','S-G','E-G'};
+NameF = {'Boron','HMS','AS','T300','KEV','S-G','E-G'};
 Ef1a = [400 379 213.7 221 152 85.5 73.1];
 Ef2a = [400 6.21 13.8 13.8 4.14 85.5 73.1];
 vf12a = [0.2 0.2 0.2 0.2 0.35 0.2 0.22];
 Gf12a = [167 7.58 13.8 8.96 2.9 35.6 30.1];
 
 % Matrix material properties. E values in GPa
-listmat = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
+NameM = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
 Ema = [2.21 3.45 3.45 5.17 3.45 3.24];
 vma = [0.43 0.41 0.35 0.35 0.35 0.36];
 Gma = Ema./(2.*(1+vma));
 
 % Composite material properties. E values in GPa
-listcom = {'Boron/5505 boron/epoxy','AS/3501 carbon/epoxy',...
+NameC = {'Boron/5505 boron/epoxy','AS/3501 carbon/epoxy',...
         'IM7/8551-7 carbon/epoxy','AS4/APC2 carbon/PEEK',...
 		'B4/6061 boron/aluminum','Kevlar 49/934 aramid/epoxy',...
 		'Scotchply 1002 E-glass/epoxy','E-glass/470-36/vinyl ester'};
