@@ -1,4 +1,4 @@
-function [E1,E2,G12,v12,t,f,theta,NameC,NameF,NameM] = eparam(n,vv)
+function [E1,E2,G12,v12,t,f,theta,NameC,com,NameF,fib,NameM,mat] = eparam(n,vv)
 % Calculates layer properties for variable and nonvariable volume fraction
 
 % Fiber material properties. E values in GPa
@@ -7,12 +7,14 @@ Ef1a = [400 379 213.7 221 152 85.5 73.1];
 Ef2a = [400 6.21 13.8 13.8 4.14 85.5 73.1];
 vf12a = [0.2 0.2 0.2 0.2 0.35 0.2 0.22];
 Gf12a = [167 7.58 13.8 8.96 2.9 35.6 30.1];
+fib = zeros(1,n);
 
 % Matrix material properties. E values in GPa
 NameM = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
 Ema = [2.21 3.45 3.45 5.17 3.45 3.24];
 vma = [0.43 0.41 0.35 0.35 0.35 0.36];
 Gma = Ema./(2.*(1+vma));
+mat = zeros(1,n);
 
 % Composite material properties. E values in GPa
 NameC = {'Boron/5505 boron/epoxy','AS/3501 carbon/epoxy',...
@@ -24,6 +26,7 @@ Ec2 = [18.5 9 8.34 8.7 137 5.5 8.27 6.87];
 Gc12 = [5.59 6.9 2.07 5 47 2.3 4.14 2.89];
 vc12 = [0.23 0.3 0.34 0.28 0.3 0.34 0.26 0.32];
 fc = [0.5 0.65 0.6 0.58 0.5 0.65 0.45 0.3];
+com = zeros(1,n);
 
 % Preallocating arrays
 f = zeros(1,n);
@@ -41,6 +44,7 @@ G12 = zeros(1,n);
             E2(i) = Ec2(composite);
             G12(i) = Gc12(composite);
             f(i) = fc(composite);
+            com(i) = composite;
         end
     
     elseif vv == 1 % yes variable vf
@@ -49,6 +53,8 @@ G12 = zeros(1,n);
         for i = 1:n 
             % Choose fiber material for each layer
             [fiber] = choosefiber(i);
+            fib(i) = fiber;
+            mat(i) = matrix;
             % Fiber/matrix properties for chosen materials
             Ef1 = Ef1a(fiber);
             Ef2 = Ef2a(fiber);
