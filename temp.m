@@ -1,42 +1,66 @@
+
 clear; clc; close all;
-
 % temp file for testing
-rng(1)
-n = 4;
-Qbar = 60*rand(3,3,n);
-z = [-0.50, -0.250, 0, 0.250, 0.50];
-NM=[0.020000000000000;0.010000000000000;-1.000000000000000e-03;1.000000000000000e-03;-1.000000000000000e-04;-1.000000000000000e-03];
-% A=[74.433750633186200,2.715826036616253,0;2.715826036616253,74.433750633186200,0;0,0,6.900000000000000];
-% B=[0,0,0;0,0,0;0,0,0];
-% D=[10.289124876377933,0.226318836384688,0;0.226318836384688,2.116500229153098,0;0,0,0.575000000000000];
-ABBD=[74.4337506331862 2.71582603661625	0 0 0 0;...
-    2.71582603661625 74.4337506331862 0 0 0	0;...
-    0 0 6.90000000000000 0 0 0;...
-    0 0 0 10.2891248763779 0.226318836384688 0;...
-    0 0 0 0.226318836384688 2.11650022915310 0;...
-    0 0 0 0 0 0.575000000000000];
 
-%% function [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD,n,Qbar,z)
-% -------------------------------------
-    % Midplane strains and curvatures
-    ek = (ABBD\NM);
-    eps0 = ek(1:3);
-    k = ek(4:6);
-    % Lamina stresses and strains eq 7.61
-    strain = zeros(3,n+1);
-    % Strain array between all layers
-    for i = 1:n+1
-        strain(:,i) = [eps0(1)+z(i)*k(1); eps0(2)+z(i)*k(2); eps0(3)+z(i)*k(3)];
-    end
-    % Strains top and bottom of each layer
-    epsbarT = strain(:,1:n);
-    epsbarB = strain(:,2:n+1);
-    % Stresses top and bottom of each layer
-    sigmabarT = zeros(3,n);
-    sigmabarB = zeros(3,n);
-    for i = 1:n
-       sigmabarT(:,i) = Qbar(:,:,i)*epsbarT(:,i);
-       sigmabarB(:,i) = Qbar(:,:,i)*epsbarB(:,i);
+%% function [SLP,SLM,STP,STM] = sparam(vv,com,fib,mat,n,f,E1,E2,v12)
+% -------------------------------------------
+SLP = zeros(1,n);
+SLM = zeros(1,n);
+STP = zeros(1,n);
+STM = zeros(1,n);
+
+% Fiber strength properties (GPa)
+NameF = {'Boron','HMS','AS','T300','KEV','S-G','E-G'};
+SLpf = [4.140 1.720 2.410 2.410 2.760 4.140 2.760];
+SLmf = [4.830 1.380 1.790 2.070 0.517 0 0];
+ef1 = [0.008 0.007 0.018 0.014 0.024 0.057 0.048];
+Ef2 = [400 6.21 13.8 13.8 4.14 85.5 73.1];
+fd = [1.4224e-5 7.62e-06 7.62e-06 7.62e-06 1.17e-05 9.14e-06 9.14e-06];
+fs = zeros(1,n);
+for i = 1:n
+    fs(i) = fd(fib(i))/sqrt(4*f(i)/pi); 
+end
+
+% Matrix strength properties (GPa)
+NameM = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
+Sp = [0.055 0.048 0.1034 0.138 0.103 0.379];
+Sm = [0.103 0.145 0.2413 0.345 0.207 0.110];
+SLT = [0.055 0.048 0.090 0.103 0.090 0.055];
+eTp = [0.081 0.014 0.02 0.02 0.02 0.02];
+Em = [2.21 3.45 3.45 5.17 3.45 3.24];
+
+% Composite strength properties (GPa)
+NameC = {'Boron/5505 boron/epoxy','AS/3501 carbon/epoxy',...
+        'IM7/8551-7 carbon/epoxy','AS4/APC2 carbon/PEEK',...
+		'B4/6061 boron/aluminum','Kevlar 49/934 aramid/epoxy',...
+		'Scotchply 1002 E-glass/epoxy','E-glass/470-36/vinyl ester'};
+SLPc = [1.586 1.448 2.578 2.06 1.373 1.379 1.103 0.584];
+SLMc = [2.482 1.172 1.62 1.08 1.573 0.276 0.621 0.803];
+STPc = [0.0627 0.0483 0.0758 0.078 0.118 0.0276 0.0276 0.043];
+STMc = [0.241 0.248 0.248 0.196 0.157 0.0648 0.138 0.187];
+
+    if vv == 0  % no variable volume fraction
+        for i = 1:n
+            % properties in table 4.1
+            SLP(i) = SLPc(com(i));
+            SLM(i) = SLMc(com(i));
+            STP(i) = STPc(com(i));
+            STM(i) = STMc(com(i));
+        end
+
+    elseif vv == 1   % yes variable volume fraction
+        F = zeros(1,n);
+        for i = 1:n
+            % longitudinal tensile strength
+            SLP(i) = SLpf(fib(i))*f(i) + Sp(mat(i))*(1-f(i));
+            % longitudinal compressive strength
+            SLM(i) = (E1(i)*eTp(mat(i)))/v12(i);
+            % transverse tensile strength
+            F(i) = 1/(((fd(fib(i))/fs(i)))*((Em(mat(i))/Ef2(fib(i)))-1)+1);
+            STP(i) = (E2(i)*Sm(mat(i)))/(Em(mat(i))*F(i));
+            % transverse compressice strength
+            STM(i) = Sm(mat(i));
+        end
     end
 
 

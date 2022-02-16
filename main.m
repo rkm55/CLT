@@ -47,7 +47,7 @@ ABBD = [A B; B D];
 [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD,Qbar,n,z);
 
 %% Strength Parameters
-% [SLP,SLM,STP,STM] = strengthparam(vv,com,fib,mat,n,f,E1,v12);
+% [SLP,SLM,STP,STM] = sparam(vv,com,fib,mat,n,f,E1,v12);
 
 %% Display Values
 % disp('IMLS matrix, HMS fiber, 0.75 vf')
