@@ -2,7 +2,7 @@ clc; clear; close all;
 %%% ME 456 CLT Project Code
 %   Author:     Ryan Melander
 %   Started:    1/6/2022
-%   Last Edit:  2/6/2022
+%   Last Edit:  2/16/2022
 
 %% Number of Plies
 % n = # plies
@@ -47,7 +47,10 @@ ABBD = [A B; B D];
 [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD,Qbar,n,z);
 
 %% Strength Parameters
-% [SLP,SLM,STP,STM] = sparam(vv,com,fib,mat,n,f,E1,v12);
+[SLP,SLM,STP,STM,SLT] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12);
+
+%% Failure Criteria
+[FC] = fcriteria;
 
 %% Display Values
 % disp('IMLS matrix, HMS fiber, 0.75 vf')

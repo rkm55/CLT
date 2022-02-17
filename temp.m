@@ -16,10 +16,6 @@ SLmf = [4.830 1.380 1.790 2.070 0.517 0 0];
 ef1 = [0.008 0.007 0.018 0.014 0.024 0.057 0.048];
 Ef2 = [400 6.21 13.8 13.8 4.14 85.5 73.1];
 fd = [1.4224e-5 7.62e-06 7.62e-06 7.62e-06 1.17e-05 9.14e-06 9.14e-06];
-fs = zeros(1,n);
-for i = 1:n
-    fs(i) = fd(fib(i))/sqrt(4*f(i)/pi); 
-end
 
 % Matrix strength properties (GPa)
 NameM = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
@@ -49,6 +45,7 @@ STMc = [0.241 0.248 0.248 0.196 0.157 0.0648 0.138 0.187];
         end
 
     elseif vv == 1   % yes variable volume fraction
+        fs = zeros(1,n);
         F = zeros(1,n);
         for i = 1:n
             % longitudinal tensile strength
@@ -56,6 +53,7 @@ STMc = [0.241 0.248 0.248 0.196 0.157 0.0648 0.138 0.187];
             % longitudinal compressive strength
             SLM(i) = (E1(i)*eTp(mat(i)))/v12(i);
             % transverse tensile strength
+            fs(i) = fd(fib(i))/sqrt(4*f(i)/pi);
             F(i) = 1/(((fd(fib(i))/fs(i)))*((Em(mat(i))/Ef2(fib(i)))-1)+1);
             STP(i) = (E2(i)*Sm(mat(i)))/(Em(mat(i))*F(i));
             % transverse compressice strength

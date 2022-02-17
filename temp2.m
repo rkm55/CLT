@@ -2,27 +2,57 @@ clear; clc; close all;
 % temp file for in class exercises
 
 %% In class exercise
-% suppose that you are designing a wind turbine blade that is 50m long. 
-% Will glass / epoxy composite take the weight, or should you use carbon 
-% epoxy (both with 50% vf)?
-% At the base, assume it has a circular cross section, of 2m diameter and 
-% with 15mm thick section.
-% If it is made of glass it will weigh 10,000 kg; if it is made of carbon 
-% it will weigh 7,775 kg.
-% Initially assume all 0o fibers in either design, and then briefly discuss
-% implications of more practical layups 
-% (e.g. +/- 45 or 90 layers; see Table 4.1 for strength properties of 
-% AS3501 and Scotchply 1002, for example)
-w = 10000;
-I = (pi/2)*(1^4 - 0.985^4);
-sigma = (25*(9.81*10000)*1)/I;
+% You are making a shipping container with glass fiber panels. These must
+% be stacked, and hence undergo high axial loads. The +45o laminate of 
+% 45% glass fiber in epoxy is loaded in compression along the vertical 
+% % x-axis. At what stress will it fail using the maximum strain criterion?
+theta = 45;
+s = sind(theta);
+c = cosd(theta);
+SLP = 1103;
+STM = 138;
+SLT = 82.7;
+v12 = 0.32;
+v21 = 0.09;
+x1 = SLP/(c^2-v12*s^2);
+x2 = STM/(s^2-v21*c^2);
+x3 = SLT/(s*c);
 
-disp('Stress MPa (glass fibers)')
-disp(sigma/1e6)
+sigmax = min([x1 x2 x3]);
 disp(' ')
-disp('Both glass and carbon fibers are sufficiently')
-disp('strong when considering both stresses due to ')
-disp('gravitational force and centripetal force.')
+disp('Max strain criterion:')
+disp('failure due to shear, max stress = ')
+disp(['   ',num2str(sigmax),' MPa'])
 disp(' ')
 disp(' ')
+
+%% Tsai-Hill
+SLM = 621;
+
+xTH = sqrt(1/((c^4/SLM^2)+((1/SLT^2)-(1/SLM^2))*s^2*c^2 + (s^4/STM^2)));
+disp(' ')
+disp('Tsai-Hill criterion:')
+disp('failure max stress = ')
+disp(['   ',num2str(xTH),' MPa'])
+disp(' ')
+disp(' ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
