@@ -49,8 +49,9 @@ ABBD = [A B; B D];
 %% Strength Parameters
 [SLP,SLM,STP,STM,SLT] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12);
 
-%% Failure Criteria
-[FC] = fcriteria;
+%% Failure Check
+% check failure for all criteria
+[maxstress,maxstrain,tsai_hill] = failurecheck(theta,n,SLP,SLM,STP,STM,SLT,sigmabarT,epsbarT,sigmabarB,epsbarB);
 
 %% Display Values
 % disp('IMLS matrix, HMS fiber, 0.75 vf')

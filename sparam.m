@@ -1,4 +1,4 @@
- function [SLP,SLM,STP,STM,SLT] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12)
+function [SLP,SLM,STP,STM,SLT] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12)
 % Calculates the longitudinal tensile/compressive strengths, transverse
 % tensile/compressive strengths, and in-plane shear strength of each lamina
 SLP = zeros(1,n);
