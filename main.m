@@ -51,7 +51,7 @@ ABBD = [A B; B D];
 
 %% Failure Check
 % check failure for all criteria
-[maxstress,maxstrain,tsai_hill] = failurecheck(theta,n,SLP,SLM,STP,STM,SLT,sigmabarT,epsbarT,sigmabarB,epsbarB);
+[maxstress,maxstrain,tsai_hill] = failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB);
 
 %% Display Values
 % disp('IMLS matrix, HMS fiber, 0.75 vf')

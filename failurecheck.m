@@ -1,14 +1,18 @@
-function [maxstress,maxstrain,tsai_hill]=failurecheck(theta,n,SLP,SLM,STP,STM,SLT,sigmabarT,epsbarT,sigmabarB,epsbarB)
+function [maxstress,maxstrain,tsai_hill]=failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB)
 % -------------------------
     % Rotate stresses into principal frame
     sigmaT = zeros(3,n);
     sigmaB = zeros(3,n);
+    epsT = zeros(3,n);
+    epsB = zeros(3,n);
     for i = 1:n
         s = sind(theta(i));
         c = cosd(theta(i));
         T = [c^2 s^2 2*c*s; s^2 c^2 -2*c*s; -c*s c*s c^2-s^2];
         sigmaT(:,i) = T*sigmabarT(:,i);
         sigmaB(:,i) = T*sigmabarB(:,i);
+        epsT(:,i) = S(3,3,i)*sigmaT(:,i);
+        epsB(:,i) = S(3,3,i)*sigmaT(:,i);
     end
     % Max Stress
     maxstress = zeros(3,n);
@@ -23,7 +27,20 @@ function [maxstress,maxstrain,tsai_hill]=failurecheck(theta,n,SLP,SLM,STP,STM,SL
     end
     % Max Strain
     maxstrain = zeros(3,n);
-
+    for i = 1:n
+        eLP = SLP(i)/E1(i);
+        eTP = STP(i)/E2(i);
+        eLM = SLM(i)/E1(i);
+        eTM = STM(i)/E2(i);
+        eLT = SLT(i)/G12(i);
+        if -eLM > epsT(1,i) || eLP < epsT(1,i) || -eLM > epsB(1,i) || eLP < epsB(1,i)
+            maxstrain(1,i) = 1;
+        elseif -eTM > epsT(2,i) || eTP < epsT(2,i) || -eTM > epsB(2,i) || eTP < epsB(2,i)
+            maxstrain(2,i) = 1;
+        elseif abs(epsT(3,i)) > eLT || abs(epsB(3,i)) > eLT
+            maxstrain(3,i) = 1;
+        end
+    end
     % Tsai-Hill
     tsai_hill = zeros(1,n);
     SL = 1; ST = 1; % For cases of zeros stress
@@ -55,30 +72,4 @@ function [maxstress,maxstrain,tsai_hill]=failurecheck(theta,n,SLP,SLM,STP,STM,SL
             tsai_hill(i) = 1;
         end
     end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+end
