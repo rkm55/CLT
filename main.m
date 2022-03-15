@@ -53,12 +53,8 @@ ABBD = [A B; B D];
 % check failure for all criteria
 [maxstress,maxstrain,tsai_hill] = failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB);
 
-%% Display Values
-% disp('IMLS matrix, HMS fiber, 0.75 vf')
-% disp('Q (GPa)')
-% disp(Q(:,:,1))
-% disp(['Qbar (GPa), rotation ',num2str(theta),' degrees'])
-% disp(Qbar(:,:,1))
+%% Ouput Results
+% output(...);
 
 %% Function numplies
 %
