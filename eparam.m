@@ -2,7 +2,7 @@ function [E1,E2,G12,v12,t,f,theta,NameC,com,NameF,fib,NameM,mat] = eparam(n,vv)
 % Calculates layer properties for variable and nonvariable volume fraction
 
 % Fiber material properties. E values in GPa
-NameF = {'Boron','HMS','AS','T300','KEV','S-G','E-G'};
+NameF = {'Boron','HMS  ','AS   ','T300 ','KEV  ','S-G  ','E-G  '};
 Ef1a = [400 379 213.7 221 152 85.5 73.1];
 Ef2a = [400 6.21 13.8 13.8 4.14 85.5 73.1];
 vf12a = [0.2 0.2 0.2 0.2 0.35 0.2 0.22];
@@ -10,7 +10,7 @@ Gf12a = [167 7.58 13.8 8.96 2.9 35.6 30.1];
 fib = zeros(1,n);
 
 % Matrix material properties. E values in GPa
-NameM = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
+NameM = {'LM       ','IMLS     ','IMHS     ','HM       ','Polyimide','PMR      '};
 Ema = [2.21 3.45 3.45 5.17 3.45 3.24];
 vma = [0.43 0.41 0.35 0.35 0.35 0.36];
 Gma = Ema./(2.*(1+vma));

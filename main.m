@@ -30,8 +30,7 @@ clc; clear; close all;
 % B = laminate coupling stiffnesses (GPa mm^2)
 % A = laminate bending stiffnesses (GPa mm^3)
 % z = Distances array (mm)
-[A,B,D,z] = macrostiffness(Qbar,t,n);
-ABBD = [A B; B D];
+[A,B,D,z,ABBD] = macrostiffness(Qbar,t,n);
 
 %% Applied Forces
 % NM = MPa-mm and MPa-mm^2
@@ -51,10 +50,15 @@ ABBD = [A B; B D];
 
 %% Failure Check
 % check failure for all criteria
-[maxstress,maxstrain,tsai_hill] = failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB);
+[maxstress,maxstrain,tsai_hill] = failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12);
 
 %% Ouput Results
-% output(...);
+clc;
+output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD);
+
+
+
+
 
 %% Function numplies
 %

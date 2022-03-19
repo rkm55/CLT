@@ -1,4 +1,4 @@
-function [A,B,D,z] = macrostiffness(Qbar,t,n)
+function [A,B,D,z,ABBD] = macrostiffness(Qbar,t,n)
 % A,B,D macrostiffness matrix calculations (eqns: 7.41, 7.42, 7.43)
     % Distances z (mm)
     z = zeros(1,n+1);
@@ -22,4 +22,5 @@ function [A,B,D,z] = macrostiffness(Qbar,t,n)
             end
         end
     end
+    ABBD = [A B; B D];
 end

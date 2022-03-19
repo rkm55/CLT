@@ -1,4 +1,4 @@
-function [maxstress,maxstrain,tsai_hill]=failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB)
+function [maxstress,maxstrain,tsai_hill]=failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12)
 % -------------------------
     % Rotate stresses into principal frame
     sigmaT = zeros(3,n);
