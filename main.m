@@ -2,63 +2,43 @@ clc; clear; close all;
 %%% ME 456 CLT Project Code
 %   Author:     Ryan Melander
 %   Started:    1/6/2022
-%   Last Edit:  2/16/2022
+%   Last Edit:  3/24/2022
 
 %% Number of Plies
-% n = # plies
-% vv = variable volume fraction 'yes' or 'no'
+
 [n,vv] = numplies;
 
 %% Engineering Parameters
-% E1 = modulus 1 for each layer (GPa)
-% E2 = modulus 2 for each layer
-% G12 = shear modulus for each layer
-% v12 = major poissons ratio for each layer
-% t = thickness of each layer (mm)
-% f = volume fraction of each layer
-% theta = orientation in degrees of each layer (deg)
-% Name* = list of composite, fiber, and matrix materials
+
 [E1,E2,G12,v12,t,f,theta,NameC,com,NameF,fib,NameM,mat] = eparam(n,vv);
 
-%% Stiffness Tensors
-% Q = stiffness tensor for each layer (GPa)
-% Qbar = stiffness tensor in global frame for each layer
+%% Layer Stifnesses
+
 [Q,Qbar,S] = Qcalc(n,E1,E2,G12,v12,theta);
 
 %% Macro Stiffness Constants
-% A = laminate extensional stiffnesses (GPa mm)
-% B = laminate coupling stiffnesses (GPa mm^2)
-% A = laminate bending stiffnesses (GPa mm^3)
-% z = Distances array (mm)
+
 [A,B,D,z,ABBD] = macrostiffness(Qbar,t,n);
 
 %% Applied Forces
-% NM = MPa-mm and MPa-mm^2
+
 [NM] = appforces;
 
 %% Stresses
-% eps0 = midplane strains
-% k = midplane curvatures
-% sigmabarT = stress on top of layer n (GPa)
-% epsbarT = strain on top of layer n
-% sigmabarB = stress on bottom of layer n (GPa)
-% epsbarB = strain on bottom of layer n
+
 [eps0,k,sigmabarT,epsbarT,sigmabarB,epsbarB] = stresses(NM,ABBD,Qbar,n,z);
 
 %% Strength Parameters
+
 [SLP,SLM,STP,STM,SLT] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12);
 
 %% Failure Check
-% check failure for all criteria
+
 [maxstress,maxstrain,tsai_hill] = failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12);
 
 %% Ouput Results
-clc;
-output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD);
 
-
-
-
+output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD,sigmabarT,sigmabarB,NM);
 
 %% Function numplies
 %
@@ -93,5 +73,30 @@ output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,A
 %% Function macrostiffness
 %
 % <include>macrostiffness.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function appforces
+%
+% <include>appforces.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function stresses
+%
+% <include>stresses.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function sparameters
+%
+% <include>sparam.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function failurecheck
+%
+% <include>failurecheck.m</include>
+%
+% The file content above is properly syntax highlighted
+%% Function output
+%
+% <include>output.m</include>
 %
 % The file content above is properly syntax highlighted

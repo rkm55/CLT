@@ -1,44 +1,7 @@
-output_CLT.txt		Number of plies: 4		Generated 19-Mar-2022 
+output_CLT.txt		Number of plies: 6		Generated 24-Mar-2022 
 Units: (GPa,mm) 
 
 
 Layup Info:
 	Matrix		Fiber	Vf		Thick	Theta	E1			E2		G12
-1	IMLS     	AS   	0.50	0.25	   0	108.57		6.20	2.79
-2	IMLS     	T300 	0.56	0.30	  45	125.28		6.75	2.90
-3	IMLS     	KEV  	0.67	0.30	 -45	102.98		3.90	2.12
-4	IMLS     	Boron	0.53	0.25	  90	213.62		9.96	3.54
-
-
-Failure Criteria (1 signifies failure of layer for given criteria
-
-Max Strain
-		Long	Tran	Shear
-1		0		0		0
-2		0		0		0
-3		1		0		0
-4		1		0		0
-
-Max Stress
-		Long	Tran	Shear
-1		0		0		0
-2		0		0		0
-3		0		0		0
-4		0		0		0
-
-Tsai-Hill
-1		0
-2		0
-3		0
-4		0
-
-
-Stiffness, Stress, and Strain
-
-ABBD Stiffness Matrix:
-61.56		31.61		-12.48		12.70		2.47		-4.91
-31.61		63.24		-12.48		2.47		-7.82		-4.91
--12.48		-12.48		33.18		-4.91		-4.91		2.58
-12.70		2.47		-4.91		6.00		1.16		-0.61
-2.47		-7.82		-4.91		1.16		5.83		-0.61
--4.91		-4.91		2.58		-0.61		-0.61		1.28
+1

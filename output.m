@@ -1,6 +1,6 @@
-function output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD)
+function output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD,sigmabarT,sigmabarB,NM)
 % -----------------------------
-filename = 'output_CLT.txt'; 
+filename = 'output_CLT_milestone2.txt'; 
 fid = fopen(filename,'w');
 
 % Title
@@ -24,6 +24,10 @@ for i = 1:n
     fprintf(fid,'\t\t%4.2f',E2(i));
     fprintf(fid,'\t%4.2f',G12(i));
 end
+
+% Applied Forces
+fprintf(fid,'\n\nApplied Forces');
+fprintf(fid,'\n%4.3f',NM);
 
 % Failure
 fprintf(fid,'\n\n\nFailure Criteria (1 signifies failure of layer for given criteria');
@@ -53,6 +57,11 @@ end
 fprintf(fid,'\n\n\nStiffness, Stress, and Strain');
 fprintf(fid,'\n\nABBD Stiffness Matrix:');
 fprintf(fid,'\n%4.2f\t\t%4.2f\t\t%4.2f\t\t%4.2f\t\t%4.2f\t\t%4.2f',ABBD);
+fprintf(fid,'\n\nStresses (rows = plies, columns = x y tau');
+fprintf(fid,'\n\nTop');
+fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',sigmabarT);
+fprintf(fid,'\n\nBottom');
+fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',sigmabarB);
 
 
 
