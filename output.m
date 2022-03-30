@@ -1,28 +1,42 @@
-function output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD,sigmabarT,sigmabarB,NM)
+function output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD,sigmabarT,sigmabarB,NM,epsbarT,epsbarB,vv,NameC,com)
 % -----------------------------
-filename = 'output_CLT_milestone2.txt'; 
+filename = 'output_CLT.txt'; 
 fid = fopen(filename,'w');
 
 % Title
 fprintf(fid,'%s',filename);
 fprintf(fid,'\t\tNumber of plies: %s',num2str(n));
-fprintf(fid,'\t\tGenerated %s \r\n',date);
+fprintf(fid,'\t\tGenerated: %s \r\n',date);
 fprintf(fid,'Units: (GPa,mm) \r\n');
 
 % Laminate Info
-% add for vv = 1 or 0
-fprintf(fid,'\n\nLayup Info:');
-fprintf(fid,'\n\tMatrix\t\tFiber\tVf\t\tThick\tTheta\tE1\t\t\tE2\t\tG12');
-for i = 1:n
-    fprintf(fid,'\n%s',num2str(i));
-    fprintf(fid,'\t%s',string(NameM(mat(i))));
-    fprintf(fid,'\t%s',string(NameF(fib(i))));
-    fprintf(fid,'\t%4.2f',f(i));
-    fprintf(fid,'\t%4.2f',t(i));
-    fprintf(fid,'\t%4.0f',theta(i));
-    fprintf(fid,'\t%4.2f',E1(i));
-    fprintf(fid,'\t\t%4.2f',E2(i));
-    fprintf(fid,'\t%4.2f',G12(i));
+if vv == 1  % yes variable vf
+    fprintf(fid,'\n\nLayup Info:');
+    fprintf(fid,'\n\tMatrix\t\tFiber\tvf\t\tThick\tTheta\tE1\t\t\tE2\t\tG12');
+    for i = 1:n
+        fprintf(fid,'\n%s',num2str(i));
+        fprintf(fid,'\t%s',string(NameM(mat(i))));
+        fprintf(fid,'\t%s',string(NameF(fib(i))));
+        fprintf(fid,'\t%4.2f',f(i));
+        fprintf(fid,'\t%4.2f',t(i));
+        fprintf(fid,'\t%4.0f',theta(i));
+        fprintf(fid,'\t%4.2f',E1(i));
+        fprintf(fid,'\t\t%4.2f',E2(i));
+        fprintf(fid,'\t%4.2f',G12(i));
+    end
+elseif vv == 0  % no variable vf
+    fprintf(fid,'\n\nLayup Info:');
+    fprintf(fid,'\n\tComposite\t\t\t\tvf\t\tThick\tTheta\tE1\t\t\tE2\t\tG12');
+    for i = 1:n
+        fprintf(fid,'\n%s',num2str(i));
+        fprintf(fid,'\t%s',string(NameC(com(i))));
+        fprintf(fid,'\t%4.2f',f(i));
+        fprintf(fid,'\t%4.2f',t(i));
+        fprintf(fid,'\t%4.0f',theta(i));
+        fprintf(fid,'\t%4.2f',E1(i));
+        fprintf(fid,'\t\t%4.2f',E2(i));
+        fprintf(fid,'\t%4.2f',G12(i));
+    end
 end
 
 % Applied Forces
@@ -62,32 +76,9 @@ fprintf(fid,'\n\nTop');
 fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',sigmabarT);
 fprintf(fid,'\n\nBottom');
 fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',sigmabarB);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+fprintf(fid,'\n\nStrains (rows = plies, columns = x y tau');
+fprintf(fid,'\n\nTop');
+fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',epsbarT);
+fprintf(fid,'\n\nBottom');
+fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',epsbarB);
+end

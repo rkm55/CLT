@@ -28,10 +28,10 @@ function [maxstress,maxstrain,tsai_hill]=failurecheck(theta,n,S,SLP,SLM,STP,STM,
     % Max Strain
     maxstrain = zeros(3,n);
     for i = 1:n
-        eLP = SLP(i)/E1(i);
-        eTP = STP(i)/E2(i);
-        eLM = SLM(i)/E1(i);
-        eTM = STM(i)/E2(i);
+        eLP = SLP(i)/E1(i); 
+        eTP = STP(i)/E2(i); % page 176
+        eLM = SLM(i)/E1(i);  
+        eTM = STM(i)/E2(i); % same em- over F
         eLT = SLT(i)/G12(i);
         if -eLM > epsT(1,i) || eLP < epsT(1,i) || -eLM > epsB(1,i) || eLP < epsB(1,i)
             maxstrain(1,i) = 1;

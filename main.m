@@ -38,7 +38,8 @@ clc; clear; close all;
 
 %% Ouput Results
 
-output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD,sigmabarT,sigmabarB,NM);
+output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,...
+    tsai_hill,ABBD,sigmabarT,sigmabarB,NM,epsbarT,epsbarB,vv,NameC,com);
 
 %% Function numplies
 %
