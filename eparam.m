@@ -82,7 +82,7 @@ G12 = zeros(1,n);
     % Thickness of each layer (mm)
     t = zeros(1,n);
     for i = 1:n
-        definput= {'0.25'};
+        definput= {'0.3'};
         options.Resize= 'on';
         t(i) = str2double(inputdlg(['Input thickness (mm) for layer ',num2str(i)]...
         ,'Thickness',1,definput,options));

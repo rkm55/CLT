@@ -1,8 +1,8 @@
-function output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD,sigmabarT,sigmabarB,NM,epsbarT,epsbarB,vv,NameC,com)
-% -----------------------------
+function output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,tsai_hill,ABBD,sigmaT,sigmaB,epsT,epsB,NM,vv,NameC,com)
+% outputs results to file
+
 filename = 'output_CLT.txt'; 
 fid = fopen(filename,'w');
-
 % Title
 fprintf(fid,'%s',filename);
 fprintf(fid,'\t\tNumber of plies: %s',num2str(n));
@@ -44,7 +44,8 @@ fprintf(fid,'\n\nApplied Forces');
 fprintf(fid,'\n%4.3f',NM);
 
 % Failure
-fprintf(fid,'\n\n\nFailure Criteria (1 signifies failure of layer for given criteria');
+fprintf(fid,'\n\n\nFailure Criteria (1 signifies failure)');
+fprintf(fid,'\nRows = plies, columns = failure mode');
 fprintf(fid,'\n\nMax Strain');
 fprintf(fid,'\n\t\tLong\tTran\tShear');
 for i = 1:n
@@ -70,15 +71,16 @@ end
 % Stiffness, Stress, Strain
 fprintf(fid,'\n\n\nStiffness, Stress, and Strain');
 fprintf(fid,'\n\nABBD Stiffness Matrix:');
-fprintf(fid,'\n%4.2f\t\t%4.2f\t\t%4.2f\t\t%4.2f\t\t%4.2f\t\t%4.2f',ABBD);
+fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',ABBD);
 fprintf(fid,'\n\nStresses (rows = plies, columns = x y tau');
+% fprintf(fid,'\nRows = plies, columns = failure direction');
 fprintf(fid,'\n\nTop');
-fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',sigmabarT);
-fprintf(fid,'\n\nBottom');
-fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',sigmabarB);
-fprintf(fid,'\n\nStrains (rows = plies, columns = x y tau');
-fprintf(fid,'\n\nTop');
-fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',epsbarT);
-fprintf(fid,'\n\nBottom');
-fprintf(fid,'\n%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f\t\t%4.3f',epsbarB);
+fprintf(fid,'\n%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f',sigmaT);
+% fprintf(fid,'\n\nBottom');
+% fprintf(fid,'\n%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f',sigmaB);
+% fprintf(fid,'\n\nStrains (rows = plies, columns = x y tau');
+% fprintf(fid,'\n\nTop');
+% fprintf(fid,'\n%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f',epsT);
+% fprintf(fid,'\n\nBottom');
+% fprintf(fid,'\n%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f\t\t%4.4f',epsB);
 end

@@ -1,4 +1,4 @@
-function [SLP,SLM,STP,STM,SLT] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12)
+function [SLP,SLM,STP,STM,SLT,F,emp,emm] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12)
 % Calculates the longitudinal tensile/compressive strengths, transverse
 % tensile/compressive strengths, and in-plane shear strength of each lamina
 SLP = zeros(1,n);
@@ -21,7 +21,7 @@ NameM = {'LM','IMLS','IMHS','HM','Polyimide','PMR'};
 Sp = [0.055 0.048 0.1034 0.138 0.103 0.379];
 Sm = [0.103 0.145 0.2413 0.345 0.207 0.110];
 Sltm = [0.055 0.048 0.090 0.103 0.090 0.055];
-eTp = [0.081 0.014 0.02 0.02 0.02 0.02];
+% eTp = [0.081 0.014 0.02 0.02 0.02 0.02];
 Em = [2.21 3.45 3.45 5.17 3.45 3.24];
 vm = [0.43 0.41 0.35 0.35 0.35 0.36];
 Gm = Em./(2.*(1+vm));
@@ -51,20 +51,29 @@ SLTc = [0.0827 0.0621 0.0621 0.157 0.128 0.06 0.0827 0.065];
         fs = zeros(1,n);
         F = zeros(1,n);
         Fs = zeros(1,n);
+        Smf1p = zeros(1,n);
+        emp = zeros(1,n);
+        emm = zeros(1,n);
+        eTp = zeros(1,n);
         for i = 1:n
             % longitudinal tensile strength
-            SLP(i) = SLpf(fib(i))*f(i) + Sp(mat(i))*(1-f(i));
-            % longitudinal compressive strength
-            SLM(i) = (E1(i)*eTp(mat(i)))/v12(i);
+            Smf1p(i) = Em(mat(i))*ef1(fib(i));
+            SLP(i) = SLpf(fib(i))*f(i) + Smf1p(i)*(1-f(i));
             % transverse tensile strength
             fs(i) = fd(fib(i))/sqrt(4*f(i)/pi);
             F(i) = 1/(((fd(fib(i))/fs(i)))*((Em(mat(i))/Ef2(fib(i)))-1)+1);
-            STP(i) = (E2(i)*Sm(mat(i)))/(Em(mat(i))*F(i));
+            STP(i) = (E2(i)*Sp(mat(i)))/(Em(mat(i))*F(i));
             % transverse compressive strength
-            STM(i) = Sm(mat(i));
+            STM(i) = (E2(i)*Sm(mat(i)))/(Em(mat(i))*F(i));
             % in-plane shear strength
             Fs(i) = 1/(((fd(fib(i))/fs(i)))*((Gm(mat(i))/Gf12(fib(i)))-1)+1);
             SLT(i) = (G12(i)*Sltm(mat(i)))/(Gm(mat(i))*Fs(i));
+            % strains in matrix
+            emp(i) = Sp(mat(i))/Em(mat(i));
+            emm(i) = Sm(mat(i))/Em(mat(i));
+            % longitudinal compressive strength
+            eTp(i) = emp(i)/F(i);
+            SLM(i) = (E1(i)*eTp(i))/v12(i);
         end
     end
  end

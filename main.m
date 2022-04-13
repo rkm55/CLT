@@ -30,16 +30,18 @@ clc; clear; close all;
 
 %% Strength Parameters
 
-[SLP,SLM,STP,STM,SLT] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12);
+[SLP,SLM,STP,STM,SLT,F,emp,emm] = sparam(vv,com,fib,mat,n,f,E1,E2,v12,G12);
 
 %% Failure Check
 
-[maxstress,maxstrain,tsai_hill] = failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12);
+[maxstress,maxstrain,tsai_hill,sigmaT,sigmaB,epsT,epsB] = failurecheck(...
+    theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12,F,...
+    emp,emm,vv,epsbarT,epsbarB);
 
 %% Ouput Results
 
 output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,...
-    tsai_hill,ABBD,sigmabarT,sigmabarB,NM,epsbarT,epsbarB,vv,NameC,com);
+    tsai_hill,ABBD,sigmaT,sigmaB,epsT,epsB,NM,vv,NameC,com);
 
 %% Function numplies
 %
