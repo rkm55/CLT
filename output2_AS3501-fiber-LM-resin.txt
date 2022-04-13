@@ -1,0 +1,64 @@
+output2_AS3501-fiber-LM-resin.txt		Number of plies: 2		Generated: 12-Apr-2022 
+Units: (GPa,mm) 
+
+Layup Info:
+	Matrix	Fiber	vf	Thick	Theta	E1	E2	G12
+1	LM       	AS   	0.65	0.10	  90	139.68	5.95	2.76
+2	LM       	AS   	0.65	0.20	   0	139.68	5.95	2.76
+
+Applied Forces (NM)
+0.0500
+0.0000
+0.0000
+0.0000
+0.0000
+0.0000
+
+Failure Criteria (1 signifies failure)
+Rows = plies, columns = failure mode
+
+Max Strain: Fail
+	Long	Tran	Shear
+1	0	1	0
+2	0	0	0
+
+Max Stress: Fail
+	Long	Tran	Shear
+1	0	1	0
+2	0	0	0
+
+Tsai-Hill: Fail
+1	1
+2	0
+
+ABBD Stiffness Matrix:
+28.626	0.502	0.000	1.342	-0.000	0.000
+0.502	15.208	0.000	-0.000	-1.342	0.000
+0.000	0.000	0.827	0.000	0.000	-0.000
+1.342	-0.000	0.000	0.170	0.004	0.000
+-0.000	-1.342	0.000	0.004	0.159	0.000
+0.000	0.000	-0.000	0.000	0.000	0.006
+
+Stresses (rows = x, y, xy  columns = plies)
+
+Top of plies (sigmabarT)
+x	0.0361	0.5422
+y	0.0060	0.0057
+xy	0.0000	0.0000
+
+Bottom of plies (sigmabarB)
+x	0.0229	-0.0717
+y	-0.0117	-0.0028
+xy	0.0000	0.0000
+
+Strains (rows = x, y, xy  columns = plies)
+
+Top of plies (epsbarT)
+x	0.006060	0.003871
+y	-0.000030	-0.000130
+xy	0.000000	0.000000
+
+Bottom of plies (epsbarB)
+x	0.003871	-0.000508
+y	-0.000130	-0.000331
+xy	0.000000	0.000000

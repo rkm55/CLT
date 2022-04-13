@@ -2,7 +2,7 @@ clc; clear; close all;
 %%% ME 456 CLT Project Code
 %   Author:     Ryan Melander
 %   Started:    1/6/2022
-%   Last Edit:  3/24/2022
+%   Completed:  4/12/2022
 
 %% Number of Plies
 
@@ -35,13 +35,13 @@ clc; clear; close all;
 %% Failure Check
 
 [maxstress,maxstrain,tsai_hill,sigmaT,sigmaB,epsT,epsB] = failurecheck(...
-    theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12,F,...
+    theta,n,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12,F,...
     emp,emm,vv,epsbarT,epsbarB);
 
 %% Ouput Results
 
 output(n,NameM,mat,NameF,fib,E1,E2,G12,f,t,theta,maxstrain,maxstress,...
-    tsai_hill,ABBD,sigmaT,sigmaB,epsT,epsB,NM,vv,NameC,com);
+    tsai_hill,ABBD,sigmabarT,sigmabarB,epsbarT,epsbarB,NM,vv,NameC,com);
 
 %% Function numplies
 %

@@ -1,5 +1,5 @@
-function [maxstress,maxstrain,tsai_hill,sigmaT,sigmaB,epsT,epsB]=failurecheck(theta,n,S,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12,F,emp,emm,vv,epsbarT,epsbarB)
-% -------------------------
+function [maxstress,maxstrain,tsai_hill,sigmaT,sigmaB,epsT,epsB]=failurecheck(theta,n,SLP,SLM,STP,STM,SLT,sigmabarT,sigmabarB,E1,E2,G12,F,emp,emm,vv,epsbarT,epsbarB)
+% Checks for failure for all max strain, max stress, and Tsai-Hill criteria
     % Rotate stresses into principal frame
     sigmaT = zeros(3,n);
     sigmaB = zeros(3,n);

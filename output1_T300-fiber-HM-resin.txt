@@ -1,0 +1,68 @@
+output_T300-fiber-HM-resin.txt		Number of plies: 3		Generated: 12-Apr-2022 
+Units: (GPa,mm) 
+
+Layup Info:
+	Matrix	Fiber	vf	Thick	Theta	E1	E2	G12
+1	HM       	T300 	0.50	0.10	  90	113.08	8.07	3.61
+2	HM       	T300 	0.50	0.10	   0	113.08	8.07	3.61
+3	HM       	T300 	0.50	0.10	  90	113.08	8.07	3.61
+
+Applied Forces (NM)
+0.0037
+0.0000
+0.0000
+0.0037
+0.0000
+0.0000
+
+Failure Criteria (1 signifies failure)
+Rows = plies, columns = failure mode
+
+Max Strain: Fail
+	Long	Tran	Shear
+1	0	0	0
+2	0	0	0
+3	0	1	0
+
+Max Stress: Fail
+	Long	Tran	Shear
+1	0	0	0
+2	0	0	0
+3	0	1	0
+
+Tsai-Hill: Fail
+1	0
+2	0
+3	1
+
+ABBD Stiffness Matrix:
+12.992	0.669	0.000	-0.000	-0.000	0.000
+0.669	23.551	0.000	-0.000	-0.000	0.000
+0.000	0.000	1.083	0.000	0.000	-0.000
+-0.000	-0.000	0.000	0.027	0.005	0.000
+-0.000	-0.000	0.000	0.005	0.247	0.000
+0.000	0.000	-0.000	0.000	0.000	0.008
+
+Stresses (rows = x, y, xy  columns = plies)
+
+Top of plies (sigmabarT)
+x	-0.1660	-0.7579	0.0585
+y	0.0014	-0.0138	-0.0008
+xy	0.0000	0.0000	0.0000
+
+Bottom of plies (sigmabarB)
+x	-0.0538	0.8236	0.1707
+y	0.0003	0.0150	-0.0019
+xy	0.0000	0.0000	0.0000
+
+Strains (rows = x, y, xy  columns = plies)
+
+Top of plies (epsbarT)
+x	-0.020584	-0.006669	0.007247
+y	0.000416	0.000133	-0.000150
+xy	0.000000	0.000000	0.000000
+
+Bottom of plies (epsbarB)
+x	-0.006669	0.007247	0.021162
+y	0.000133	-0.000150	-0.000432
+xy	0.000000	0.000000	0.000000
