@@ -16,6 +16,7 @@ function [maxstress,maxstrain,tsai_hill,sigmaT,sigmaB,epsT,epsB]=failurecheck(th
         epsT(:,i) = T2*epsbarT(:,i);
         epsB(:,i) = T2*epsbarB(:,i);
     end
+    % Max Stress
     maxstress = zeros(3,n);
         for i = 1:n
             if sigmaT(1,i) < -SLM(i) || sigmaT(1,i) > SLP(i) || sigmaB(1,i) < -SLM(i)  || sigmaB(1,i) > SLP(i)
@@ -66,13 +67,14 @@ function [maxstress,maxstrain,tsai_hill,sigmaT,sigmaB,epsT,epsB]=failurecheck(th
         end
         top = (sigmaT(1,i)^2)/(SL^2) - (sigmaT(1,i)*sigmaT(2,i))/(SL^2) + (sigmaT(2,i)^2)/(ST^2) + (sigmaT(3,i)^2)/(SLT(i)^2);
         % set SL and ST for tension or compression
-        if sign(sigmaB(1,i)) > 1
+        if sign(sigmaB(1,i)) == 1
             SL = SLP(i);
-        elseif sign(sigmaB(1,i)) < 1
+        else
             SL = SLM(i);
-        elseif sign(sigmaB(2,i)) > 1
+        end
+        if sign(sigmaB(2,i)) == 1
             ST = STP(i);
-        elseif sign(sigmaB(2,i)) < 1
+        else
             ST = STM(i);
         end
         bottom = (sigmaB(1,i)^2)/(SL^2) - (sigmaB(1,i)*sigmaB(2,i))/(SL^2) + (sigmaB(2,i)^2)/(ST^2) + (sigmaB(3,i)^2)/(SLT(i)^2);
